@@ -2,16 +2,39 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+
+
+/**
+ * @package  App\Models
+ * @property   int $id
+ * @property   string $name
+ * @property   string $isbn
+ * @property   string $summary
+ * @property   string $author
+ * @property   Carbon $created_at
+ * @property   Carbon $deleted_at
+ * @property   Collection $user
+ * @method   filter(array $filters)
+ */
+
 
 class Book extends Model
 {
     use HasFactory, SoftDeletes;
 
     protected $fillable = ["name", "isbn", "author", "summary"];
+
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 
 
     protected static function boot(){
